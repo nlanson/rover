@@ -78,6 +78,27 @@ void roverBackward()
   delay(100);
 }
 
+void roverTurnRight()
+{
+  motor1Anti();
+  motor2Clockwise();
+  delay(100);
+}
+
+void roverTurnLeft()
+{
+  motor1Clockwise();
+  motor2Anti();
+  delay(100);
+}
+
+void stopRover()
+{
+  motor1Stop();
+  motor2Stop();
+  delay(100);
+}
+
 void loop()
 {
    if (Serial.available() >0) {
