@@ -69,66 +69,38 @@ void motor2Stop() {
 void roverForward() {
   motor1Clockwise();
   motor2Clockwise();
-  delay(100);
 }
 
 // Move the rover backwards
 void roverBackward() {
   motor1Anti();
   motor2Anti();
-  delay(100);
 }
 
 // Turn the rover to the right
 void roverTurnRight() {
   motor1Anti();
   motor2Clockwise();
-  delay(100);
 }
 
 // Turn the rover to the left
 void roverTurnLeft() {
   motor1Clockwise();
   motor2Anti();
-  delay(100);
 }
 
 // Stop the rover
 void stopRover() {
   motor1Stop();
   motor2Stop();
-  delay(100);
 }
 
-void loop() {
-   if (Serial.available() >0) {
-   incomingByte = Serial.read(); //read incoming byte
-    
-    switch (incomingByte) {
-      case 102: // f key to move both motors forwards
-	    motor1Clockwise();
-      motor2Clockwise();
-      break;
-      
-      case 98: // b key to move both motors backwards
-      motor1Anti();
-      motor2Anti();
-      break;
-      
-      case 108: //  l key to turn left
-      motor1Anti();
-      motor2Clockwise();
-      break;
-      
-      case 114: // r key to turn right
-      motor1Clockwise();
-      motor2Anti();
-      break;
-      
-      case 115: // s key to stop
-      motor1Stop();
-      motor2Stop();
-      break;
-    }
-  }
+void loop()
+{
+  roverForward();
+  delay(100);
+  stopRover();
+  delay(100);
+  roverTurnRight();
+  delay(100);
 }
