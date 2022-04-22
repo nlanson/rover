@@ -68,12 +68,14 @@ void roverForward()
 {
   motor1Clockwise();
   motor2Clockwise();
+  delay(100);
 }
 
 void roverBackward()
 {
   motor1Anti();
   motor2Anti();
+  delay(100);
 }
 
 void loop()
