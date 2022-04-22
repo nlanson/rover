@@ -64,7 +64,17 @@ void motor2Stop()
   digitalWrite(inputPin4, HIGH);
 }
 
+void roverForward()
+{
+  motor1Clockwise();
+  motor2Clockwise();
+}
 
+void roverBackward()
+{
+  motor1Anti();
+  motor2Anti();
+}
 
 void loop()
 {
