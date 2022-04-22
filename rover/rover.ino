@@ -1,18 +1,21 @@
 // Rover code for ENGN1211
-//By Noah Lanson, Nathan Tein and CHristopher Tsirbas.
+//
+// Authors
+//  - Christopher Tsirbas
+//  - Nathan Tein
+//  - Noah Lanson
 
 const int enablePin1 = 8; //H-bridge enable pin1, 1,2 EN
-const int inputPin1 = 7; //H-bridge inputPin 1
-const int inputPin2 = 6; //H-bridge inputPin 2
+const int inputPin1 = 7;  //H-bridge inputPin 1
+const int inputPin2 = 6;  //H-bridge inputPin 2
 const int enablePin2 = 9; //H-bridge enable pin2, 3,4 EN
-const int inputPin3 = 3; //H-bridge inputPin 3
-const int inputPin4 = 4; //H-bridge inputPin 4
+const int inputPin3 = 3;  //H-bridge inputPin 3
+const int inputPin4 = 4;  //H-bridge inputPin 4
 int incomingByte = 0;
 
 
-void setup()
-{
-  Serial.begin(9600); //open serial port
+void setup() {
+  Serial.begin(9600);
   pinMode(enablePin1, 8);
   pinMode(inputPin1, 7);
   pinMode(inputPin2, 6);
@@ -22,91 +25,88 @@ void setup()
   
 }
 
-void motor1Clockwise()
-{
+void motor1Clockwise() {
   digitalWrite(enablePin1, HIGH);
   digitalWrite(inputPin1, HIGH);
   digitalWrite(inputPin2, LOW);
 }
-
-void motor1Anti()
-{
+// Turn motor 1 anti-clockwise
+void motor1Anti() {
   digitalWrite(enablePin1, HIGH);
   digitalWrite(inputPin1, LOW);
   digitalWrite(inputPin2, HIGH);
 }
-  
-void motor2Clockwise()
-{
+
+// Turn motor 2 clockwise
+void motor2Clockwise() {
   digitalWrite(enablePin2, HIGH);
   digitalWrite(inputPin3, LOW);
   digitalWrite(inputPin4, HIGH);
 }
 
-void motor2Anti()
-{
+// Turn 2 anti-clockwise
+void motor2Anti() {
   digitalWrite(enablePin2, HIGH);
   digitalWrite(inputPin3, HIGH);
   digitalWrite(inputPin4, LOW);
 }
-  
-void motor1Stop()
-{
+
+// Stop motor 1
+void motor1Stop() {
   digitalWrite(enablePin1, LOW);
   digitalWrite(inputPin1, HIGH);
   digitalWrite(inputPin2, LOW);
 }
 
-void motor2Stop()
-{
+// Stop motor 2
+void motor2Stop() {
   digitalWrite(enablePin2, LOW);
   digitalWrite(inputPin3, LOW);
   digitalWrite(inputPin4, HIGH);
 }
 
-void roverForward()
-{
+// Move the rover forwards
+void roverForward() {
   motor1Clockwise();
   motor2Clockwise();
   delay(100);
 }
 
-void roverBackward()
-{
+// Move the rover backwards
+void roverBackward() {
   motor1Anti();
   motor2Anti();
   delay(100);
 }
 
-void roverTurnRight()
-{
+// Turn the rover to the right
+void roverTurnRight() {
   motor1Anti();
   motor2Clockwise();
   delay(100);
 }
 
-void roverTurnLeft()
-{
+// Turn the rover to the left
+void roverTurnLeft() {
   motor1Clockwise();
   motor2Anti();
   delay(100);
 }
 
-void stopRover()
-{
+// Stop the rover
+void stopRover() {
   motor1Stop();
   motor2Stop();
   delay(100);
 }
 
-void loop()
-{
+void loop() {
    if (Serial.available() >0) {
    incomingByte = Serial.read(); //read incoming byte
     
     switch (incomingByte) {
       case 102: // f key to move both motors forwards
-	  motor1Clockwise();
+	    motor1Clockwise();
       motor2Clockwise();
       break;
       
@@ -129,6 +129,6 @@ void loop()
       motor1Stop();
       motor2Stop();
       break;
-   }
-}
+    }
+  }
 }
