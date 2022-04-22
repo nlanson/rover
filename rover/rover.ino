@@ -1,4 +1,5 @@
 // Rover code for ENGN1211
+//By Noah Lanson, Nathan Tein and CHristopher Tsirbas.
 
 const int enablePin1 = 8; //H-bridge enable pin1, 1,2 EN
 const int inputPin1 = 7; //H-bridge inputPin 1
