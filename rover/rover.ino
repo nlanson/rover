@@ -81,6 +81,9 @@ void roverBackward() {
 void roverTurnRight() {
   motor1Forwards();
   motor2Reverse();
+  delay(1000);
+  motor1Stop();
+  motor2Stop();
 }
 
 // Turn the rover to the left
@@ -102,4 +105,6 @@ void loop()
   delay(2000);
   motor1Stop();
   motor2Stop();
+  delay(1000);
+  roverTurnRight();
 }
