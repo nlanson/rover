@@ -25,27 +25,27 @@ void setup() {
   
 }
 
-void motor1Clockwise() {
+void motor1Reverse() {
   digitalWrite(enablePin1, HIGH);
   digitalWrite(inputPin1, HIGH);
   digitalWrite(inputPin2, LOW);
 }
-// Turn motor 1 anti-clockwise
-void motor1Anti() {
+// Turn motor 1 Forwards
+void motor1Forwards() {
   digitalWrite(enablePin1, HIGH);
   digitalWrite(inputPin1, LOW);
   digitalWrite(inputPin2, HIGH);
 }
 
-// Turn motor 2 clockwise
-void motor2Clockwise() {
+// Turn motor 2 Reverse
+void motor2Reverse() {
   digitalWrite(enablePin2, HIGH);
   digitalWrite(inputPin3, LOW);
   digitalWrite(inputPin4, HIGH);
 }
 
-// Turn 2 anti-clockwise
-void motor2Anti() {
+// Turn 2 Forwards
+void motor2Forwards() {
   digitalWrite(enablePin2, HIGH);
   digitalWrite(inputPin3, HIGH);
   digitalWrite(inputPin4, LOW);
@@ -67,26 +67,26 @@ void motor2Stop() {
 
 // Move the rover forwards
 void roverForward() {
-  motor1Clockwise();
-  motor2Clockwise();
+  motor1Reverse();
+  motor2Reverse();
 }
 
 // Move the rover backwards
 void roverBackward() {
-  motor1Anti();
-  motor2Anti();
+  motor1Forwards();
+  motor2Forwards();
 }
 
 // Turn the rover to the right
 void roverTurnRight() {
-  motor1Anti();
-  motor2Clockwise();
+  motor1Forwards();
+  motor2Reverse();
 }
 
 // Turn the rover to the left
 void roverTurnLeft() {
-  motor1Clockwise();
-  motor2Anti();
+  motor1Reverse();
+  motor2Forwards();
 }
 
 // Stop the rover
@@ -97,10 +97,9 @@ void stopRover() {
 
 void loop()
 {
-  roverForward();
-  delay(100);
-  stopRover();
-  delay(100);
-  roverTurnRight();
-  delay(100);
+  motor1Forwards();
+  motor2Forwards();
+  delay(2000);
+  motor1Stop();
+  motor2Stop();
 }
