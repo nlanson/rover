@@ -5,15 +5,17 @@
 //  - Nathan Tein
 //  - Noah Lanson
 
-const int enablePin1 = 8; //H-bridge enable pin1, 1,2 EN
-const int inputPin1 = 7;  //H-bridge inputPin 1
-const int inputPin2 = 6;  //H-bridge inputPin 2
-const int enablePin2 = 9; //H-bridge enable pin2, 3,4 EN
-const int inputPin3 = 3;  //H-bridge inputPin 3
-const int inputPin4 = 4;  //H-bridge inputPin 4
-int incomingByte = 0;
+// Motor 1 pins
+#define enablePin1 8
+#define inputPin1 7
+#define inputPin2 6
 
+// Motor 2 pins
+#define enablePin2 9
+#define inputPin3 3
+#define inputPin4 4
 
+// Setup function
 void setup() {
   Serial.begin(9600);
   pinMode(enablePin1, 8);
@@ -22,29 +24,50 @@ void setup() {
   pinMode(enablePin2, 9);
   pinMode(inputPin3, 3);
   pinMode(inputPin4, 4);
-  
+
 }
 
+// Main loop function
+void loop()
+{
+  // Drive forwards for 4000 ms
+  roverForward(4000);
+  delay(1000);
+
+  // Turn right and then stop for 1000 ms
+  roverTurnRight();
+  delay(1000);
+}
+
+
+
+
+/////////////////////////////
+// MOTOR CONTROL FUNCTIONS //
+/////////////////////////////
+
+// Turn motor 1 in reverse.
 void motor1Reverse() {
   digitalWrite(enablePin1, HIGH);
   digitalWrite(inputPin1, HIGH);
   digitalWrite(inputPin2, LOW);
 }
-// Turn motor 1 Forwards
+
+// Turn motor 1 forwards
 void motor1Forwards() {
   digitalWrite(enablePin1, HIGH);
   digitalWrite(inputPin1, LOW);
   digitalWrite(inputPin2, HIGH);
 }
 
-// Turn motor 2 Reverse
+// Turn motor 2 in reverse
 void motor2Reverse() {
   digitalWrite(enablePin2, HIGH);
   digitalWrite(inputPin3, LOW);
   digitalWrite(inputPin4, HIGH);
 }
 
-// Turn 2 Forwards
+// Turn motor 2 forwards
 void motor2Forwards() {
   digitalWrite(enablePin2, HIGH);
   digitalWrite(inputPin3, HIGH);
@@ -65,28 +88,37 @@ void motor2Stop() {
   digitalWrite(inputPin4, HIGH);
 }
 
-// Move the rover forwards
-void roverForward() {
-  motor1Reverse();
-  motor2Reverse();
-}
+/////////////////////////////
+// ROVER MOVEMENT FUNCTION //
+/////////////////////////////
 
-// Move the rover backwards
-void roverBackward() {
+
+// Move the rover forwards for the specified duration
+void roverForward(int duration) {
   motor1Forwards();
   motor2Forwards();
+  delay(duration);
+  stopRover();
+}
+
+// Move the rover backwards for the specified duration
+void roverBackward(int duration) {
+  motor1Reverse();
+  motor2Reverse();
+  delay(duration);
+  stopRover();
 }
 
 // Turn the rover to the right
 void roverTurnRight() {
   motor1Forwards();
   motor2Reverse();
-  delay(1000);
-  motor1Stop();
-  motor2Stop();
+  delay(1487); // 1487 ms turns very close to 90 degrees.
+  stopRover();
 }
 
 // Turn the rover to the left
+// UNIMPLEMENTED
 void roverTurnLeft() {
   motor1Reverse();
   motor2Forwards();
@@ -96,15 +128,4 @@ void roverTurnLeft() {
 void stopRover() {
   motor1Stop();
   motor2Stop();
-}
-
-void loop()
-{
-  motor1Forwards();
-  motor2Forwards();
-  delay(2000);
-  motor1Stop();
-  motor2Stop();
-  delay(1000);
-  roverTurnRight();
 }
