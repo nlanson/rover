@@ -5,6 +5,10 @@
 //  - Nathan Tein
 //  - Noah Lanson
 
+// Sensor pins
+#define echoPin _
+#define trigPin _
+
 // Motor 1 pins
 #define enablePin1 8
 #define inputPin1 7
@@ -18,6 +22,8 @@
 // Setup function
 void setup() {
   Serial.begin(9600);
+  pinMode(echoPin, INPUT)
+  pinMode(trigPin, OUTPUT)
   pinMode(enablePin1, 8);
   pinMode(inputPin1, 7);
   pinMode(inputPin2, 6);
