@@ -11,11 +11,16 @@ const int inputPin2 = 6;  //H-bridge inputPin 2
 const int enablePin2 = 9; //H-bridge enable pin2, 3,4 EN
 const int inputPin3 = 3;  //H-bridge inputPin 3
 const int inputPin4 = 4;  //H-bridge inputPin 4
+const int triggerPin = 2; //Sensor triggerpin 2
+const int echoPin = 1;    //Sensor echopin 1
 int incomingByte = 0;
 
+long duration;    //duration of echo.
 
 void setup() {
   Serial.begin(9600);
+  //pinMode(triggerPin, OUTPUT);
+  //pinMode(echoPin, INPUT);
   pinMode(enablePin1, 8);
   pinMode(inputPin1, 7);
   pinMode(inputPin2, 6);
@@ -100,6 +105,22 @@ void stopRover() {
 
 void loop()
 {
+  // digitalWrite(trigPin, LOW); 
+  // delayMicroseconds(2);
+  // digitalWrite(trigPin, HIGH);
+  // delayMicroseconds(10); 
+  // digitalWrite(trigPin, LOW);
+  // duration = pulseIn(echoPin, HIGH);
+  // if (((duration/2)*pow(10,-6)*100*343) <= 5) {
+  //   motor1Stop();
+  //   motor2Stop();
+  //   delay(1000);
+  //   roverTurnRight();
+  // }
+  // else {
+  //   motor1Forwards();
+  //   motor2Forwards();
+  // }
   motor1Forwards();
   motor2Forwards();
   delay(2000);
