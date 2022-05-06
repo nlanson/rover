@@ -102,9 +102,9 @@ void loop()
 {
   motor1Forwards();
   motor2Forwards();
-  delay(2000);
+  delay(4000);
   motor1Stop();
   motor2Stop();
-  delay(1000);
+  delay(1450);
   roverTurnRight();
 }
