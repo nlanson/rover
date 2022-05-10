@@ -31,7 +31,7 @@ void roverBackward(int duration) {
 void roverTurnRight() {
   motor1Forwards();
   motor2Reverse();
-  delay(1487); // 1487 ms turns very close to 90 degrees.
+  delay(1480); // 1487 ms turns a little over 90 deg
   stopRover();
 }
 

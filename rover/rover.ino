@@ -12,14 +12,14 @@
 // Setup function
 void setup() {
   Serial.begin(9600);
-  pinMode(echoPin, INPUT);
-  pinMode(trigPin, OUTPUT);
-  pinMode(enablePin1, 8);
-  pinMode(inputPin1, 7);
-  pinMode(inputPin2, 6);
-  pinMode(enablePin2, 9);
-  pinMode(inputPin3, 3);
-  pinMode(inputPin4, 4);
+  // pinMode(echoPin, INPUT);
+  // pinMode(trigPin, OUTPUT);
+  pinMode(enablePin1, OUTPUT);
+  pinMode(inputPin1, OUTPUT);
+  pinMode(inputPin2, OUTPUT);
+  pinMode(enablePin2, OUTPUT);
+  pinMode(inputPin3, OUTPUT);
+  pinMode(inputPin4, OUTPUT);
 }
 
 // Main loop function
