@@ -20,16 +20,19 @@ void setup() {
   pinMode(enablePin2, OUTPUT);
   pinMode(inputPin3, OUTPUT);
   pinMode(inputPin4, OUTPUT);
+
+  delay(1500);
+  roverForward(4000);
 }
 
 // Main loop function
 void loop()
 {
-  // Drive forwards for 4000 ms
-  roverForward(4000);
-  delay(1000);
+  // // Drive forwards for 4000 ms
+  // roverForward(4000);
+  // delay(1000);
 
   // Turn right and then stop for 1000 ms
-  roverTurnRight();
-  delay(1000);
+  // roverTurnLeft();
+  // delay(1000);
 }

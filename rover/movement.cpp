@@ -27,17 +27,17 @@ void roverBackward(int duration) {
   stopRover();
 }
 
-// Turn the rover to the right
-void roverTurnRight() {
+// Turn the rover to the left
+void roverTurnLeft() {
   motor1Forwards();
   motor2Reverse();
-  delay(1480); // 1487 ms turns a little over 90 deg
+  delay(1568); // 1568 is good but little under after a few runs
   stopRover();
 }
 
-// Turn the rover to the left
+// Turn the rover to the right
 // UNIMPLEMENTED
-void roverTurnLeft() {
+void roverTurnRight() {
   motor1Reverse();
   motor2Forwards();
 }

@@ -5,6 +5,7 @@
 
 #include "Arduino.h"
 #include "pins.h"
+#include <Servo.h>
 
 // Motor control function declarations
 void motor1Reverse();
