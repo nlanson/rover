@@ -10,24 +10,40 @@
 
 Servo servo;
 
+void servoHalfRight(int *pos) {
+  delay(100);
+  servo.write(45);
+  *pos = 45;
+  delay(100);
+}
+
+void servoHalfLeft(int *pos) {
+  delay(100);
+  servo.write(135);
+  *pos = 135;
+  delay(100);
+}
 // Turn the servo to the right
-void servoRight() {
+void servoRight(int *pos) {
   delay(100);
   servo.write(0);
+  *pos = 0;
   delay(100);
 }
 
 // Resets the servo's position to the centre
-void servoReset() {
+void servoReset(int *pos) {
   delay(100);
   servo.write(90);
+  *pos = 90;
   delay(100);
 }
 
 // Turn the servo to the left
-void servoLeft() {
+void servoLeft(int *pos) {
   delay(100); 
   servo.write(180);
+  *pos = 180;
   delay(100);
 }
 

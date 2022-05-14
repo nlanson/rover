@@ -10,9 +10,11 @@
 extern Servo servo;
 
 // Servo control function declarations
-void servoRight();
-void servoLeft();
-void servoReset();
+void servoRight(int *pos);
+void servoLeft(int *pos);
+void servoReset(int *pos);
+void servoHalfRight(int *pos);
+void servoHalfLeft(int *pos);
 
 // Motor control function declarations
 void motor1Reverse();

@@ -11,3 +11,4 @@ void roverBackward();
 void roverTurnRight();
 void roverTurnLeft();
 void stopRover();
+void roverRightOffset();

@@ -9,6 +9,8 @@
 #include "movement.h"
 #include "components.h"
 
+int pos = 0;
+
 // Setup function
 void setup() {
   // Pin and serial initialisation.
@@ -26,53 +28,50 @@ void setup() {
 
   // Servo initialisation.
   servo.attach(8);
-  servoReset();
+  servoReset(&pos);
+
+  delay(5000);
 }
+
 
 // Main loop function
 void loop()
 {
-  // // Drive forwards for 4000 ms
-  // roverForward(4000);
-  // delay(1000);
-  long distance = callSensor();
-  //If statements checking what position the servo is in
-    if (pos = 90) {
-      //Turns the rover left and if there is no wall to the rover's left.
-      if (distance > 5) { 
-        centreServo();
-        roverTurnLeft();
-      }
-      if (distance < 5) {
-        turnServoToLeft();
-      }
+  if (callSensor() < 2.5) {
+    //Sweep
+    servoRight(&pos);
+    delay(500);
+    long rd = callSensor();
+    delay(500);
+    servoLeft(&pos);
+    delay(500);
+    long ld = callSensor();
+    delay(500);
+
+    // Reset servo
+    servoReset(&pos);
+    delay(1000);
+    
+    //Turns
+    if (rd < 5 && ld < 5) {
+      roverTurnRight();
+      roverTurnRight();
+    } else if (rd > ld) {
+      roverForwards();
+      delay(375);
+      roverTurnRight();
+    } else {
+      roverForwards();
+      delay(375);
+      roverTurnLeft();
+    }
+  } else {
+    // Move forwards until distance is less than 2.5
+    while (callSensor() > 2.5) {
+      //roverRightOffset();
+      roverForwards();
     }
 
-    if (pos = -90) {
-      if (distance < 5){
-        centreServo();
-        roverTurnRight();
-        roverTurnRight();
-      }
-      if (distance > 5) {
-        centreServo();
-        roverTurnRight();
-        }
-    } 
-    if (pos = 0) { //
-      if (distance < 2.5) {
-      stopRover();
-      delay(2000);
-      turnServoToRight();
-      }
-      else {
-        roverForward();
-        delay(500);
-        }      
-    }
+    stopRover();
+  }
 } 
-
-  // Turn right and then stop for 1000 ms
-  // roverTurnLeft();
-  // delay(1000);
-
