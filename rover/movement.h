@@ -6,8 +6,8 @@
 #include "Arduino.h"
 #include "pins.h"
 
-void roverForward(int duration);
-void roverBackward(int duration);
+void roverForwards();
+void roverBackward();
 void roverTurnRight();
 void roverTurnLeft();
 void stopRover();

@@ -6,9 +6,43 @@
 //  - Noah Lanson
 
 
-#include "Arduino.h"
-#include "pins.h"
 #include "components.h"
+
+Servo servo;
+
+// Turn the servo to the right
+void servoRight() {
+  delay(100);
+  servo.write(0);
+  delay(100);
+}
+
+// Resets the servo's position to the centre
+void servoReset() {
+  delay(100);
+  servo.write(90);
+  delay(100);
+}
+
+// Turn the servo to the left
+void servoLeft() {
+  delay(100); 
+  servo.write(180);
+  delay(100);
+}
+
+// Take a sonar sensor measurement. 
+// Value returned is the measured distance in centimetres.
+long callSensor() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  long duration = pulseIn(echoPin, HIGH);
+  return duration/29/2;
+}
 
 
 // Turn motor 1 in reverse.
