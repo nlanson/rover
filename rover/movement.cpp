@@ -10,6 +10,7 @@
 #include "movement.h"
 #include "components.h"
 
+Servo servo;
 
 // Move the rover forwards for the specified duration
 void roverForward(int duration) {
