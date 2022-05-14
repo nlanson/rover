@@ -5,27 +5,19 @@
 //  - Nathan Tein
 //  - Noah Lanson
 
-#include "Arduino.h"
-#include "pins.h"
 #include "movement.h"
 #include "components.h"
 
-Servo servo;
-
-// Move the rover forwards for the specified duration
-void roverForward(int duration) {
+// Move the rover forwards indefinately
+void roverForwards() {
   motor1Forwards();
   motor2Forwards();
-  delay(duration);
-  stopRover();
 }
 
-// Move the rover backwards for the specified duration
-void roverBackward(int duration) {
+// Move the rover backwards indefinately
+void roverBackward() {
   motor1Reverse();
   motor2Reverse();
-  delay(duration);
-  stopRover();
 }
 
 // Turn the rover to the left

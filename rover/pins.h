@@ -15,6 +15,9 @@
 #define inputPin3 6
 #define inputPin4 5
 
+// Servo pin
+#define servoPin 8
+
 // Sensor pins
-#define echoPin 8 // placeholder
-#define trigPin 9 // placeholder
+#define echoPin 10
+#define trigPin 9

@@ -11,31 +11,24 @@
 
 // Setup function
 void setup() {
+  // Pin and serial initialisation.
   Serial.begin(9600);
-  pinMode(echoPin, INPUT);
-  pinMode(trigPin, OUTPUT);
   pinMode(enablePin1, OUTPUT);
   pinMode(inputPin1, OUTPUT);
   pinMode(inputPin2, OUTPUT);
   pinMode(enablePin2, OUTPUT);
   pinMode(inputPin3, OUTPUT);
   pinMode(inputPin4, OUTPUT);
+  pinMode(servoPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(trigPin, OUTPUT);
+
+
+  // Servo initialisation.
   servo.attach(8);
-
-  delay(1500);
-  roverForward(4000);
+  servoReset();
 }
 
-//Releases a pulse from the sensor and finds a distance between the sensor and the object in front.
-long callSensor() {
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  long duration = pulseIn(echoPin,HIGH);
-  return duration/29/2;
-}
 // Main loop function
 void loop()
 {
