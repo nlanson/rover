@@ -48,3 +48,26 @@ void stopRover() {
   motor1Stop();
   motor2Stop();
 }
+
+//Turns servo to the right
+void turnServoToRight() {
+  for (int pos = 0; pos <= 90; pos += 1) {
+      servo.write(pos);
+      delay(10);
+      }
+}
+
+//Turns servo to the left
+void turnServoToLeft() {
+  for (int pos = 90; pos<= -90; pos -=1) {
+    servo.write(pos);
+    delay(10);
+    }
+}
+
+//Centres the servo so that it's facing the direction the rover's moving.
+void centreServo() {
+  for (int pos = -90; pos <= 0; pos +=1) {
+    servo.write(pos);
+    }
+}
