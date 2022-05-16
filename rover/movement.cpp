@@ -24,7 +24,7 @@ void roverBackward() {
 void roverTurnLeft() {
   motor1Forwards();
   motor2Reverse();
-  delay(1300); // 1568 is good but little under after a few runs
+  delay(1370); // 1568 is good but little under after a few runs
   stopRover();
 }
 void roverRightOffset (){
@@ -38,7 +38,7 @@ void roverRightOffset (){
 void roverTurnRight() {
   motor1Reverse();
   motor2Forwards();
-  delay(1300);
+  delay(1370);
   stopRover();
 }
 

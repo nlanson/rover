@@ -30,7 +30,7 @@ void setup() {
   servo.attach(8);
   servoReset(&pos);
 
-  delay(5000);
+  delay(1000);
 }
 
 
