@@ -18,11 +18,11 @@ void stopRover();
 
 // Sonar sweep structure
 struct SonarSweep {
-    int left;
-    int diagLeft;
-    int front;
-    int diagRight;
-    int right;
+    long left;
+    long diagLeft;
+    long front;
+    long diagRight;
+    long right;
 };
 
 SonarSweep sonarSweep();
