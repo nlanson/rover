@@ -9,8 +9,6 @@
 #include "movement.h"
 #include "components.h"
 
-int pos = 0;
-
 // Setup function
 void setup() {
   // Pin and serial initialisation.
@@ -28,7 +26,7 @@ void setup() {
 
   // Servo initialisation.
   servo.attach(8);
-  servoReset(&pos);
+  servoReset();
 
   delay(5000);
 }
@@ -37,41 +35,29 @@ void setup() {
 // Main loop function
 void loop()
 {
-  if (callSensor() < 2.5) {
-    //Sweep
-    servoRight(&pos);
-    delay(500);
-    long rd = callSensor();
-    delay(500);
-    servoLeft(&pos);
-    delay(500);
-    long ld = callSensor();
-    delay(500);
+  SonarSweep sweep = sonarSweep();
+  bool canGoStraight = (sweep.front > 2.5) && (sweep.diagLeft > 5) & (sweep.diagRight > 5);
+  bool canGoRight = (sweep.right > 5) && (sweep.diagRight > 5);
+  bool canGoLeft = (sweep.left > 5) && (sweep.diagLeft > 5);
 
-    // Reset servo
-    servoReset(&pos);
-    delay(1000);
-    
-    //Turns
-    if (rd < 5 && ld < 5) {
+  // Make turns if needed. 
+  // This series of statements does not take into accound if we can go straight but there
+  // is a greater area to the left or right.
+  if (!canGoStraight) {
+    // If right is clear and right dist > left dist, turn right.
+    // Else if left if clearn and left dist > right dist, turn left.
+    // Else, turn around and go back.
+    if (canGoRight && (sweep.right > sweep.left)) {
       roverTurnRight();
-      roverTurnRight();
-    } else if (rd > ld) {
-      roverForwards();
-      delay(375);
-      roverTurnRight();
-    } else {
-      roverForwards();
-      delay(375);
+    } else if (canGoLeft & (sweep.left > sweep.right)) {
       roverTurnLeft();
+    } else {
+      roverUTurn();
     }
-  } else {
-    // Move forwards until distance is less than 2.5
-    while (callSensor() > 2.5) {
-      //roverRightOffset();
-      roverForwards();
-    }
-
-    stopRover();
   }
+
+  // Go forwards to next cell.
+  roverForwards();
+  delay(1500);
+  stopRover();
 } 

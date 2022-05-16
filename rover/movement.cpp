@@ -6,7 +6,42 @@
 //  - Noah Lanson
 
 #include "movement.h"
-#include "components.h"
+
+SonarSweep sonarSweep() {
+  SonarSweep a;
+
+  servoLeft();
+  delay(100);
+  a.left = callSensor();
+  delay(100);
+
+  servoHalfLeft();
+  delay(100);
+  a.diagLeft = callSensor();
+  delay(100);
+
+  servoReset();
+  delay(100);
+  a.front = callSensor();
+  delay(100);
+
+  servoHalfRight();
+  delay(100);
+  a.diagRight = callSensor();
+  delay(100);
+
+  servoRight();
+  delay(100);
+  a.right = callSensor();
+  delay(100);
+
+  servoReset();
+  delay(100);
+
+  return a;
+}
+
+
 
 // Move the rover forwards indefinately
 void roverForwards() {
@@ -27,12 +62,6 @@ void roverTurnLeft() {
   delay(1300); // 1568 is good but little under after a few runs
   stopRover();
 }
-void roverRightOffset (){
-  motor1Forwards();
-  motor2Reverse();
-  delay(10);
-  stopRover();
-}
 
 // Turn the rover to the right
 void roverTurnRight() {
@@ -42,31 +71,13 @@ void roverTurnRight() {
   stopRover();
 }
 
+void roverUTurn() {
+  roverTurnRight();
+  roverTurnRight();
+}
+
 // Stop the rover
 void stopRover() {
   motor1Stop();
   motor2Stop();
-}
-
-//Turns servo to the right
-void turnServoToRight() {
-  for (int pos = 0; pos <= 90; pos += 1) {
-      servo.write(pos);
-      delay(10);
-      }
-}
-
-//Turns servo to the left
-void turnServoToLeft() {
-  for (int pos = 90; pos<= -90; pos -=1) {
-    servo.write(pos);
-    delay(10);
-    }
-}
-
-//Centres the servo so that it's facing the direction the rover's moving.
-void centreServo() {
-  for (int pos = -90; pos <= 0; pos +=1) {
-    servo.write(pos);
-    }
 }
