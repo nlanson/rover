@@ -22,6 +22,7 @@ void setup() {
   pinMode(servoPin, OUTPUT);
   pinMode(echoPin, INPUT);
   pinMode(trigPin, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
 
 
   // Servo initialisation.
@@ -36,39 +37,60 @@ void setup() {
 void loop()
 {
   SonarSweep sweep = sonarSweep();
-  
-  // Checks if the rover can go straight.
-  // True if front distance > 2.5, diagonal distances > 8.
-  bool canGoStraight = (sweep.front > 2.5) && (sweep.diagLeft > 8) && (sweep.diagRight > 8);
- 
-  // Checks if the rover can go left/right.
-  // True if the left/right distances > 7.5 and corresponding diagonal distances > 7.5.
-  bool canGoRight = (sweep.right > 7.5) && (sweep.diagRight > 7.5);
-  bool canGoLeft = (sweep.left > 7.5) && (sweep.diagLeft > 7.5);
 
-  // Make turns if needed.
-  // If we can go straight, no turns will be made.
-  //
-  // Doing a straight 90degree will get the wheel stuck on the maze wall, 
-  // so the rover will need to move a little forwards before or while turning.
-  if (!canGoStraight) {
-    // If the rover can go right and there is more distance to the right,
-    //    turn right
-    // Else if the rover can go left and there is more distance to the left,
-    //    turn left
-    // Otherwise
-    //    do a u turn
-    if (canGoRight && (sweep.right > sweep.left)) {
+  // Checks if the rover can go straight.
+  bool canGoStraightRaw = (sweep.front > 2.5) && (sweep.diagRight > 7.5) && (sweep.diagLeft > 7.5);
+  bool proceed = canGoStraightRaw;
+
+  if (!proceed) {
+    // Checks if the rover can go left/right.
+    bool canGoStraight = (sweep.front > 5);
+    bool canGoRight = (sweep.right > 7.5);
+    bool canGoLeft = (sweep.left > 7.6);
+
+    Serial.print(proceed);
+    Serial.print(" | ");
+    Serial.print(canGoLeft);
+    Serial.print(" ");
+    Serial.print(canGoStraight);
+    Serial.print(" ");
+    Serial.print(canGoRight);
+    Serial.print("\n");
+    
+    if (canGoRight) {
+      roverForwards();
+      delay(400);
       roverTurnRight();
-    } else if (canGoLeft && (sweep.left > sweep.right)) {
+      proceed = true;
+    } else if (canGoLeft) {
+      roverForwards();
+      delay(400);
       roverTurnLeft();
-    } else {
-      roverUTurn();
+      proceed = true;
+    } else if (canGoStraight) {
+      proceed = true;
     }
   }
 
-  // Drive forwards to the next cell.
-  roverForwards();
-  delay(1750); // This timiing needs to be adjusted.
-  stopRover();
+
+  if (proceed) {
+    nextCell();
+  } else {
+    roverBackward();
+    delay(2500);
+    stopRover();
+  }
+  
 } 
+
+
+void nextCell() {
+  roverForwards();
+  delay(2500);
+  stopRover();
+}
+
+bool XOR(bool a, bool b)
+{
+    return (a + b) % 2;
+}
