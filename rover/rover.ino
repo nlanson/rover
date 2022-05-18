@@ -77,7 +77,7 @@ void loop()
     nextCell();
   } else {
     roverBackward();
-    delay(2500);
+    delay(5400);
     stopRover();
   }
   
@@ -86,7 +86,7 @@ void loop()
 
 void nextCell() {
   roverForwards();
-  delay(2500);
+  delay(3100);
   stopRover();
 }
 
