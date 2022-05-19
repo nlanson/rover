@@ -59,7 +59,8 @@ void roverBackward() {
 void roverTurnLeft() {
   motor1Forwards();
   motor2Reverse();
-  delay(1700); // 1568 is good but little under after a few runs
+  delay(1440); // 1440 is good for rectangle test
+  
   stopRover();
 }
 
@@ -67,7 +68,7 @@ void roverTurnLeft() {
 void roverTurnRight() {
   motor1Reverse();
   motor2Forwards();
-  delay(1700);
+  delay(1400);
   stopRover();
 }
 

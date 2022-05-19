@@ -36,11 +36,77 @@ void setup() {
 // Main loop function
 void loop()
 {
+  maze();
+} 
+
+// Level 1.1
+void straightStopStraight() {
+  roverForwards();
+  delay(3000);
+  stopRover();
+  delay(1000);
+  roverBackward();
+  delay(3000);
+}
+
+// Level 1.2
+void rectangle(bool clockwise) {
+  auto turn = roverTurnRight;
+  if (!clockwise) {
+    turn = roverTurnLeft;
+  }
+
+  roverForwards();
+  delay(3500);
+  stopRover();
+  delay(500);
+  turn();
+  delay(500);
+}
+
+// Level 2
+void walledTurn() {
+  while(callSensor() > 3) {
+    roverForwards();
+  }
+  stopRover();
+  
   SonarSweep sweep = sonarSweep();
 
+  roverForwards();
+  delay(300);
+  if (sweep.left > sweep.right) {
+    roverTurnLeft();
+  } else {
+    roverTurnRight();
+  }
+}
+
+
+
+///////////////
+// MAZE CODE //
+///////////////
+
+void maze() {
+   SonarSweep sweep = sonarSweep();
+
   // Checks if the rover can go straight.
-  bool canGoStraightRaw = (sweep.front > 2.5) && (sweep.diagRight > 7.5) && (sweep.diagLeft > 7.5);
+  bool canGoStraightRaw = (sweep.front > 2.5) && (sweep.diagRight > 9) && (sweep.diagLeft > 9);
   bool proceed = canGoStraightRaw;
+  auto turnFunc = nextCellStraight;
+  
+  // Debug
+  Serial.print(sweep.left);
+  Serial.print(" | ");
+  Serial.print(sweep.diagLeft);
+  Serial.print(" | ");
+  Serial.print(sweep.front);
+  Serial.print(" | ");
+  Serial.print(sweep.diagRight);
+  Serial.print(" | ");
+  Serial.print(sweep.right);
+  Serial.print("\n");
 
   if (!proceed) {
     // Checks if the rover can go left/right.
@@ -56,41 +122,43 @@ void loop()
     Serial.print(" ");
     Serial.print(canGoRight);
     Serial.print("\n");
-    
-    if (canGoRight) {
+
+    if (canGoStraight) {
+      proceed = true;
+    } else if (canGoRight) {
       roverForwards();
       delay(400);
       roverTurnRight();
       proceed = true;
+      turnFunc = nextCellTurn;
     } else if (canGoLeft) {
       roverForwards();
       delay(400);
       roverTurnLeft();
       proceed = true;
-    } else if (canGoStraight) {
-      proceed = true;
+      turnFunc = nextCellTurn;
     }
   }
 
 
   if (proceed) {
-    nextCell();
+    turnFunc();
   } else {
     roverBackward();
     delay(5400);
     stopRover();
   }
-  
-} 
+}
 
 
-void nextCell() {
+void nextCellStraight() {
   roverForwards();
-  delay(3100);
+  delay(2750);
   stopRover();
 }
 
-bool XOR(bool a, bool b)
-{
-    return (a + b) % 2;
+void nextCellTurn() {
+  roverForwards();
+  delay(2400);
+  stopRover();
 }
