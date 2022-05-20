@@ -66,7 +66,7 @@ void rectangle(bool clockwise) {
 
 // Level 2
 void walledTurn() {
-  while(callSensor() > 3) {
+  while(callSensor() > 2.5) {
     roverForwards();
   }
   stopRover();
@@ -74,7 +74,7 @@ void walledTurn() {
   SonarSweep sweep = sonarSweep();
 
   roverForwards();
-  delay(300);
+  delay(350);
   if (sweep.left > sweep.right) {
     roverTurnLeft();
   } else {
